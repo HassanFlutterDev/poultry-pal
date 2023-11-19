@@ -1,0 +1,53 @@
+{
+    "categories": [
+        {
+            "name" : "Zabiha Chicken",
+            "subcatagories" : [
+                "Whole Zabiha Chicken (Skinless)",
+                "Zabiha Chicken Breast (Boneless, Bone-in)",
+                "Zabiha Chicken Thighs (Boneless, Bone-in)"
+
+            ]
+        },
+        {
+            "name" : "Zabiha Beef",
+            "subcategories" : [
+                "Zabiha Beef Steaks",
+                "Zabiha Ground Beef",
+                "Zabiha Beef Ribs"
+            ]
+        },
+        {
+            "name" : "Zabiha Lamb and Goat",
+            "subcategories" : [
+                "Zabiha Lamb Chops",
+                "Zabiha Lamb Leg",
+                "Zabiha Lamb and Goat Offal"
+            ]
+        },
+        {
+            "name" : "proceProcessed Halal Meat Productssshalal",
+            "subcategories" : [
+                "Beef Sausages",
+                "Halal Beef Burgers",
+                "Halal Chicken Nuggets"
+            ]
+        },
+        {
+            "name" : "Organic and Natural Halal Meat",
+            "subcategories" : [
+                "Organic Zabiha Chicken Drumstick",
+                "Natural Halal Beef Steaks",
+                "Organic Lamb Chops"
+            ]
+        },
+        {
+            "name" : "Halal Gelatin and By-Products",
+            "subcategories" : [
+                "Gelatin Capsules (Halal)",
+                "Halal Gelatin Desserts",
+                "Collagen Supplements (Halal)"
+            ]
+        }
+    ]
+}

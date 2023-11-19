@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">pounltry app</string>
+<string name="facebook_app_id">362566762976650</string>
+<string name="fb_login_protocol_scheme">fb362566762976650</string>
+<string name="facebook_client_token">6a799c7ed877fcc47af2f70d67ec5e1c</string>
+</resources>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "296684920280",
+    "project_id": "poultry-76bef",
+    "storage_bucket": "poultry-76bef.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:296684920280:android:e53df86a0461a8e14fe6ad",
+        "android_client_info": {
+          "package_name": "com.example.poultry_pal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDptfAEBr3jQtuM7V4VuckkY-4U0DU2EI8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
