@@ -142,9 +142,133 @@ class HomeScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-
+                    20.heightBox,
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      width: double.infinity,
+                      decoration: const BoxDecoration(color: redColor),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          "Best Match"
+                              .text
+                              .white
+                              .fontFamily(bold)
+                              .size(18)
+                              .make(),
+                          10.heightBox,
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: FutureBuilder(
+                              future: FirestoreServices.getFeaturedProducts(),
+                              builder: (context,
+                                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                    child: loadingIndicator(),
+                                  );
+                                } else if (snapshot.data!.docs.isEmpty) {
+                                  return "No featured products"
+                                      .text
+                                      .color(whiteColor)
+                                      .makeCentered();
+                                } else {
+                                  var featuredData = snapshot.data!.docs;
+                                  return Row(
+                                    children: List.generate(
+                                        featuredData.length,
+                                        (index) => ratings(
+                                                        featuredData[index]
+                                                            ['star1'],
+                                                        featuredData[index]
+                                                            ['star2'],
+                                                        featuredData[index]
+                                                            ['star3'],
+                                                        featuredData[index]
+                                                            ['star4'],
+                                                        featuredData[index]
+                                                            ['star5']) ==
+                                                    5 ||
+                                                ratings(
+                                                        featuredData[index]
+                                                            ['star1'],
+                                                        featuredData[index]
+                                                            ['star2'],
+                                                        featuredData[index]
+                                                            ['star3'],
+                                                        featuredData[index]
+                                                            ['star4'],
+                                                        featuredData[index]
+                                                            ['star5']) ==
+                                                    4 ||
+                                                ratings(
+                                                        featuredData[index]
+                                                            ['star1'],
+                                                        featuredData[index]
+                                                            ['star2'],
+                                                        featuredData[index]
+                                                            ['star3'],
+                                                        featuredData[index]
+                                                            ['star4'],
+                                                        featuredData[index]
+                                                            ['star5']) ==
+                                                    3
+                                            ? Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Image.network(
+                                                    featuredData[index]
+                                                        ['p_imgs'][0],
+                                                    width: 130,
+                                                    height: 130,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                  10.heightBox,
+                                                  "${featuredData[index]['p_name']}"
+                                                      .text
+                                                      .fontFamily(semibold)
+                                                      .color(darkFontGrey)
+                                                      .make(),
+                                                  10.heightBox,
+                                                  "${featuredData[index]['p_price']}"
+                                                      .text
+                                                      .color(redColor)
+                                                      .fontFamily(bold)
+                                                      .size(16)
+                                                      .make()
+                                                ],
+                                              )
+                                                .box
+                                                .white
+                                                .margin(
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 4))
+                                                .roundedSM
+                                                .padding(
+                                                    const EdgeInsets.all(8))
+                                                .make()
+                                                .onTap(() {
+                                                {
+                                                  Get.to(() => ItemDetails(
+                                                      title:
+                                                          "${featuredData[index]['p_name']}",
+                                                      data:
+                                                          featuredData[index]));
+                                                }
+                                              })
+                                            : Container()),
+                                  );
+                                }
+                              },
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                     //3rd swiper
                     20.heightBox,
+
                     VxSwiper.builder(
                         aspectRatio: 16 / 9,
                         autoPlay: true,

@@ -93,10 +93,7 @@ class FirestoreServices {
   }
 
   static getFeaturedProducts() {
-    return firestore
-        .collection(productsCollection)
-        .where('is_featured', isEqualTo: true)
-        .get();
+    return firestore.collection(productsCollection).get();
   }
 
   static searchProduct(title) {
