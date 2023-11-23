@@ -5,6 +5,7 @@ import 'package:poultry_pal/views/reviews/reviews_screen.dart';
 import 'package:poultry_pal/widget_common/our_button.dart';
 import 'package:get/get.dart';
 import '../../consts/list.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ItemDetails extends StatelessWidget {
   final String? title;
@@ -15,7 +16,6 @@ class ItemDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Get.find<ProductController>();
-
     return WillPopScope(
       onWillPop: () async {
         controller.resetValues();
@@ -120,7 +120,12 @@ class ItemDetails extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                "Seller".text.white.fontFamily(semibold).make(),
+                                AppLocalizations.of(context)!
+                                    .seller
+                                    .text
+                                    .white
+                                    .fontFamily(semibold)
+                                    .make(),
                                 5.heightBox,
                                 "${data['p_seller']}"
                                     .text
@@ -161,7 +166,8 @@ class ItemDetails extends StatelessWidget {
                               children: [
                                 SizedBox(
                                   width: 100,
-                                  child: "Quantity:"
+                                  child: AppLocalizations.of(context)!
+                                      .quantity
                                       .text
                                       .fontFamily(bold)
                                       .color(Colors.black)
@@ -205,7 +211,8 @@ class ItemDetails extends StatelessWidget {
                               children: [
                                 SizedBox(
                                   width: 100,
-                                  child: "Total:"
+                                  child: AppLocalizations.of(context)!
+                                      .total
                                       .text
                                       .fontFamily(bold)
                                       .color(Colors.black)
@@ -225,7 +232,8 @@ class ItemDetails extends StatelessWidget {
                       ),
                       //description section
                       10.heightBox,
-                      "Description"
+                      AppLocalizations.of(context)!
+                          .description
                           .text
                           .color(darkFontGrey)
                           .fontFamily(semibold)
@@ -238,9 +246,19 @@ class ItemDetails extends StatelessWidget {
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         children: List.generate(
-                            itemDetailButtonsList.length,
+                            [
+                              AppLocalizations.of(context)!.review,
+                              AppLocalizations.of(context)!.sellerpolicy,
+                              AppLocalizations.of(context)!.returnpolicy,
+                              AppLocalizations.of(context)!.supportpolicy,
+                            ].length,
                             (index) => ListTile(
-                                  title: itemDetailButtonsList[index]
+                                  title: [
+                                    AppLocalizations.of(context)!.review,
+                                    AppLocalizations.of(context)!.sellerpolicy,
+                                    AppLocalizations.of(context)!.returnpolicy,
+                                    AppLocalizations.of(context)!.supportpolicy,
+                                  ][index]
                                       .text
                                       .fontFamily(semibold)
                                       .color(darkFontGrey)
@@ -258,7 +276,9 @@ class ItemDetails extends StatelessWidget {
                       ),
                       20.heightBox,
                       //product you may also like
-                      productsyoumayLike.text
+                      AppLocalizations.of(context)!
+                          .productsalsolike
+                          .text
                           .fontFamily(bold)
                           .size(16)
                           .color(darkFontGrey)
@@ -328,7 +348,7 @@ class ItemDetails extends StatelessWidget {
                   }
                 },
                 textColor: whiteColor,
-                title: "Add to cart",
+                title: AppLocalizations.of(context)!.addtocart,
               ),
             )
           ],

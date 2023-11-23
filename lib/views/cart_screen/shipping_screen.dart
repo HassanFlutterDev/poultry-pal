@@ -4,6 +4,7 @@ import 'package:poultry_pal/views/cart_screen/payment_mathod.dart';
 import 'package:poultry_pal/widget_common/custome_textfield.dart';
 import 'package:poultry_pal/widget_common/our_button.dart';
 import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ShippingDetails extends StatelessWidget {
   const ShippingDetails({super.key});
@@ -14,7 +15,8 @@ class ShippingDetails extends StatelessWidget {
     return Scaffold(
       backgroundColor: whiteColor,
       appBar: AppBar(
-        title: "Shipping info"
+        title: AppLocalizations.of(context)!
+            .shippinginfo
             .text
             .fontFamily(semibold)
             .color(darkFontGrey)
@@ -29,12 +31,13 @@ class ShippingDetails extends StatelessWidget {
                 controller.phoneController.text.length > 10) {
               Get.to(() => const PaymentMethods());
             } else {
-              VxToast.show(context, msg: "Please fill the form");
+              VxToast.show(context,
+                  msg: AppLocalizations.of(context)!.pleasefillform);
             }
           },
           color: redColor,
           textColor: whiteColor,
-          title: "Continue",
+          title: AppLocalizations.of(context)!.continu,
         ),
       ),
       body: Padding(
@@ -42,29 +45,29 @@ class ShippingDetails extends StatelessWidget {
         child: Column(
           children: [
             customTextField(
-                hint: "Address",
+                hint: AppLocalizations.of(context)!.address,
                 isPass: false,
-                title: "Address",
+                title: AppLocalizations.of(context)!.address,
                 controller: controller.addressController),
             customTextField(
-                hint: "City",
+                hint: AppLocalizations.of(context)!.city,
                 isPass: false,
-                title: "City",
+                title: AppLocalizations.of(context)!.city,
                 controller: controller.cityController),
             customTextField(
-                hint: "State",
+                hint: AppLocalizations.of(context)!.state,
                 isPass: false,
-                title: "State",
+                title: AppLocalizations.of(context)!.state,
                 controller: controller.stateController),
             customTextField(
-                hint: "Postal Code",
+                hint: AppLocalizations.of(context)!.postalcode,
                 isPass: false,
-                title: "Postal Code",
+                title: AppLocalizations.of(context)!.postalcode,
                 controller: controller.postalcodeController),
             customTextField(
-                hint: "Phone",
+                hint: AppLocalizations.of(context)!.phone,
                 isPass: false,
-                title: "Phone",
+                title: AppLocalizations.of(context)!.phone,
                 controller: controller.phoneController),
           ],
         ),

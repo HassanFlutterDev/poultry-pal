@@ -9,6 +9,8 @@ import 'package:poultry_pal/consts/consts.dart';
 import 'package:poultry_pal/views/orders_screen/components/order_place_detail.dart';
 import 'package:poultry_pal/views/orders_screen/components/orders_status.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:poultry_pal/views/orders_screen/rate_screen.dart';
 
 class OrdersDetails extends StatefulWidget {
   final dynamic data;
@@ -28,7 +30,8 @@ class _OrdersDetailsState extends State<OrdersDetails> {
       backgroundColor: whiteColor,
       appBar: AppBar(
         elevation: 0.0,
-        title: "Order Details"
+        title: AppLocalizations.of(context)!
+            .orderdetail
             .text
             .fontFamily(semibold)
             .color(darkFontGrey)
@@ -37,162 +40,166 @@ class _OrdersDetailsState extends State<OrdersDetails> {
       bottomNavigationBar: widget.data['order_delivered']
           ? GestureDetector(
               onTap: () {
-                showDialog(
-                    context: context,
-                    builder: (_) {
-                      return Dialog(
-                        child: Container(
-                          height: 310,
-                          color: Colors.white,
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  'Rate & Review',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Center(
-                                  child: RatingBar.builder(
-                                    // rating: 3.5,
-                                    onRatingUpdate: (value) {
-                                      setState(() {
-                                        rate = value.toInt();
-                                      });
-                                    },
+                // showDialog(
+                //     context: context,
+                //     builder: (_) {
+                //       return Dialog(
+                //         child: Container(
+                //           height: 310,
+                //           color: Colors.white,
+                //           child: Column(
+                //             children: [
+                //               Padding(
+                //                 padding: const EdgeInsets.all(8.0),
+                //                 child: Text(
+                //                   'Rate & Review',
+                //                   style: TextStyle(
+                //                     fontSize: 18,
+                //                     fontWeight: FontWeight.w600,
+                //                   ),
+                //                 ),
+                //               ),
+                //               Padding(
+                //                 padding: const EdgeInsets.all(8.0),
+                //                 child: Center(
+                //                   child: RatingBar.builder(
+                //                     // rating: 3.5,
+                //                     initialRating: rate.toDouble(),
+                //                     onRatingUpdate: (value) {
+                //                       setState(() {
+                //                         rate = value.toInt();
+                //                       });
+                //                     },
 
-                                    itemBuilder: (context, index) => Icon(
-                                      CupertinoIcons.star_fill,
-                                      color: Colors.amber,
-                                    ),
-                                    itemCount: 5,
-                                    itemSize: 45.0,
-                                    direction: Axis.horizontal,
-                                  ),
-                                ),
-                              ),
-                              CustomTextFieldM(
-                                  email: review, text: 'Write a review'),
-                              isloading
-                                  ? CircularProgressIndicator()
-                                  : CustomButton3(
-                                      text: 'Submit',
-                                      ontap: () async {
-                                        if (rate > 0) {
-                                          setState(() {
-                                            isloading = true;
-                                          });
-                                          for (var i = 0;
-                                              i < widget.data['orders'].length;
-                                              i++) {
-                                            if (rate == 1) {
-                                              await FirebaseFirestore.instance
-                                                  .collection('products')
-                                                  .doc(widget.data['orders'][i]
-                                                      ['id'])
-                                                  .update({
-                                                'star1': FieldValue.arrayUnion([
-                                                  FirebaseAuth
-                                                      .instance.currentUser!.uid
-                                                ]),
-                                              });
-                                            } else if (rate == 2) {
-                                              await FirebaseFirestore.instance
-                                                  .collection('products')
-                                                  .doc(widget.data['orders'][i]
-                                                      ['id'])
-                                                  .update({
-                                                'star2': FieldValue.arrayUnion([
-                                                  FirebaseAuth
-                                                      .instance.currentUser!.uid
-                                                ]),
-                                              });
-                                            } else if (rate == 3) {
-                                              await FirebaseFirestore.instance
-                                                  .collection('products')
-                                                  .doc(widget.data['orders'][i]
-                                                      ['id'])
-                                                  .update({
-                                                'star3': FieldValue.arrayUnion([
-                                                  FirebaseAuth
-                                                      .instance.currentUser!.uid
-                                                ]),
-                                              });
-                                            } else if (rate == 4) {
-                                              await FirebaseFirestore.instance
-                                                  .collection('products')
-                                                  .doc(widget.data['orders'][i]
-                                                      ['id'])
-                                                  .update({
-                                                'star4': FieldValue.arrayUnion([
-                                                  FirebaseAuth
-                                                      .instance.currentUser!.uid
-                                                ]),
-                                              });
-                                            } else {
-                                              await FirebaseFirestore.instance
-                                                  .collection('products')
-                                                  .doc(widget.data['orders'][i]
-                                                      ['id'])
-                                                  .update({
-                                                'star5': FieldValue.arrayUnion([
-                                                  FirebaseAuth
-                                                      .instance.currentUser!.uid
-                                                ]),
-                                              });
-                                            }
-                                            var userData =
-                                                await FirebaseFirestore.instance
-                                                    .collection('users')
-                                                    .doc(FirebaseAuth.instance
-                                                        .currentUser!.uid)
-                                                    .get();
-                                            await FirebaseFirestore.instance
-                                                .collection('products')
-                                                .doc(widget.data['orders'][i]
-                                                    ['id'])
-                                                .collection('reviews')
-                                                .doc()
-                                                .set({
-                                              'rate': rate,
-                                              'time': DateTime.now(),
-                                              'name': userData.data()!['name'],
-                                              'url': userData.data()![
-                                                          'imageUrl'] ==
-                                                      ""
-                                                  ? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhW0hzwECDKq0wfUqFADEJaNGESHQ8GRCJIg&usqp=CAU'
-                                                  : userData
-                                                      .data()!['imageUrl'],
-                                              'message': review.text,
-                                            });
-                                            await FirebaseFirestore.instance
-                                                .collection('products')
-                                                .doc(widget.data['orders'][i]
-                                                    ['id'])
-                                                .update({
-                                              'reviews':
-                                                  FieldValue.increment(1),
-                                            });
-                                          }
-                                          isloading = false;
-                                          review.clear();
-                                          Get.back();
-                                          setState(() {});
-                                        } else {
-                                          Get.back();
-                                        }
-                                      }),
-                            ],
-                          ),
-                        ),
-                      );
-                    });
+                //                     itemBuilder: (context, index) => Icon(
+                //                       CupertinoIcons.star_fill,
+                //                       color: Colors.amber,
+                //                     ),
+                //                     itemCount: 5,
+                //                     itemSize: 45.0,
+                //                     direction: Axis.horizontal,
+                //                   ),
+                //                 ),
+                //               ),
+                //               rate != 1
+                //                   ? Container()
+                //                   : CustomTextFieldM(
+                //                       email: review, text: 'Write a review'),
+                //               isloading
+                //                   ? CircularProgressIndicator()
+                //                   : CustomButton3(
+                //                       text: AppLocalizations.of(context)!.save,
+                //                       ontap: () async {
+                //                         if (rate > 0) {
+                //                           setState(() {
+                //                             isloading = true;
+                //                           });
+                //                           for (var i = 0;
+                //                               i < widget.data['orders'].length;
+                //                               i++) {
+                //                             if (rate == 1) {
+                //                               await FirebaseFirestore.instance
+                //                                   .collection('products')
+                //                                   .doc(widget.data['orders'][i]
+                //                                       ['id'])
+                //                                   .update({
+                //                                 'star1': FieldValue.arrayUnion([
+                //                                   FirebaseAuth
+                //                                       .instance.currentUser!.uid
+                //                                 ]),
+                //                               });
+                //                             } else if (rate == 2) {
+                //                               await FirebaseFirestore.instance
+                //                                   .collection('products')
+                //                                   .doc(widget.data['orders'][i]
+                //                                       ['id'])
+                //                                   .update({
+                //                                 'star2': FieldValue.arrayUnion([
+                //                                   FirebaseAuth
+                //                                       .instance.currentUser!.uid
+                //                                 ]),
+                //                               });
+                //                             } else if (rate == 3) {
+                //                               await FirebaseFirestore.instance
+                //                                   .collection('products')
+                //                                   .doc(widget.data['orders'][i]
+                //                                       ['id'])
+                //                                   .update({
+                //                                 'star3': FieldValue.arrayUnion([
+                //                                   FirebaseAuth
+                //                                       .instance.currentUser!.uid
+                //                                 ]),
+                //                               });
+                //                             } else if (rate == 4) {
+                //                               await FirebaseFirestore.instance
+                //                                   .collection('products')
+                //                                   .doc(widget.data['orders'][i]
+                //                                       ['id'])
+                //                                   .update({
+                //                                 'star4': FieldValue.arrayUnion([
+                //                                   FirebaseAuth
+                //                                       .instance.currentUser!.uid
+                //                                 ]),
+                //                               });
+                //                             } else {
+                //                               await FirebaseFirestore.instance
+                //                                   .collection('products')
+                //                                   .doc(widget.data['orders'][i]
+                //                                       ['id'])
+                //                                   .update({
+                //                                 'star5': FieldValue.arrayUnion([
+                //                                   FirebaseAuth
+                //                                       .instance.currentUser!.uid
+                //                                 ]),
+                //                               });
+                //                             }
+                //                             var userData =
+                //                                 await FirebaseFirestore.instance
+                //                                     .collection('users')
+                //                                     .doc(FirebaseAuth.instance
+                //                                         .currentUser!.uid)
+                //                                     .get();
+                //                             await FirebaseFirestore.instance
+                //                                 .collection('products')
+                //                                 .doc(widget.data['orders'][i]
+                //                                     ['id'])
+                //                                 .collection('reviews')
+                //                                 .doc()
+                //                                 .set({
+                //                               'rate': rate,
+                //                               'time': DateTime.now(),
+                //                               'name': userData.data()!['name'],
+                //                               'url': userData.data()![
+                //                                           'imageUrl'] ==
+                //                                       ""
+                //                                   ? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhW0hzwECDKq0wfUqFADEJaNGESHQ8GRCJIg&usqp=CAU'
+                //                                   : userData
+                //                                       .data()!['imageUrl'],
+                //                               'message': review.text,
+                //                             });
+                //                             await FirebaseFirestore.instance
+                //                                 .collection('products')
+                //                                 .doc(widget.data['orders'][i]
+                //                                     ['id'])
+                //                                 .update({
+                //                               'reviews':
+                //                                   FieldValue.increment(1),
+                //                             });
+                //                           }
+                //                           isloading = false;
+                //                           review.clear();
+                //                           Get.back();
+                //                           setState(() {});
+                //                         } else {
+                //                           Get.back();
+                //                         }
+                //                       }),
+                //             ],
+                //           ),
+                //         ),
+                //       );
+                //     });
+                Get.to(RateScreen(data: widget.data));
               },
               child: Container(
                 height: 60,
@@ -200,7 +207,7 @@ class _OrdersDetailsState extends State<OrdersDetails> {
                 width: double.infinity,
                 child: Center(
                   child: Text(
-                    'Rate This Product',
+                    AppLocalizations.of(context)!.ratethisorder,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
@@ -222,22 +229,22 @@ class _OrdersDetailsState extends State<OrdersDetails> {
               orderStatus(
                   color: redColor,
                   icon: Icons.done,
-                  title: "Placed",
+                  title: AppLocalizations.of(context)!.placed,
                   showDone: widget.data['order_placed']),
               orderStatus(
                   color: Colors.blue,
                   icon: Icons.thumb_up,
-                  title: "Confirmed",
+                  title: AppLocalizations.of(context)!.confirmed,
                   showDone: widget.data['order_confirm']),
               orderStatus(
                   color: Colors.yellow,
                   icon: Icons.car_crash_outlined,
-                  title: "On Delivery",
+                  title: AppLocalizations.of(context)!.ondelivery,
                   showDone: widget.data['order_on_delivery']),
               orderStatus(
                   color: Colors.purple,
                   icon: Icons.done_all_rounded,
-                  title: "Delivered",
+                  title: AppLocalizations.of(context)!.delivered,
                   showDone: widget.data['order_delivered']),
               const Divider(),
               10.heightBox,
@@ -246,22 +253,22 @@ class _OrdersDetailsState extends State<OrdersDetails> {
                   orderPlacedDetails(
                     d1: widget.data['order_code'],
                     d2: widget.data['shipping_method'],
-                    title1: "Order Code",
-                    title2: "Shipping Method",
+                    title1: AppLocalizations.of(context)!.ordercode,
+                    title2: AppLocalizations.of(context)!.shippingmethod,
                   ),
                   orderPlacedDetails(
                     d1: intl.DateFormat("h:mma")
                         .add_yMd()
                         .format((widget.data['order_date'].toDate())),
                     d2: widget.data['payment_method'],
-                    title1: "Order Date",
-                    title2: "Payment Method",
+                    title1: AppLocalizations.of(context)!.orderdate,
+                    title2: AppLocalizations.of(context)!.paymentmethod,
                   ),
                   orderPlacedDetails(
-                    d1: "Unpaid",
+                    d1: widget.data['paid'] ?? "Unpaid",
                     d2: "Order Placed",
-                    title1: "Payment Status",
-                    title2: "Payment Method",
+                    title1: AppLocalizations.of(context)!.paymentstatus,
+                    title2: AppLocalizations.of(context)!.paymentmethod,
                   ),
                   Padding(
                     padding:
@@ -272,7 +279,11 @@ class _OrdersDetailsState extends State<OrdersDetails> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            "Shipping Address".text.fontFamily(semibold).make(),
+                            AppLocalizations.of(context)!
+                                .shippingaddress
+                                .text
+                                .fontFamily(semibold)
+                                .make(),
                             "${widget.data['order_by_name']}"
                                 .text
                                 .fontFamily(semibold)
@@ -309,7 +320,11 @@ class _OrdersDetailsState extends State<OrdersDetails> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              "Total Amount".text.fontFamily(semibold).make(),
+                              AppLocalizations.of(context)!
+                                  .totalamount
+                                  .text
+                                  .fontFamily(semibold)
+                                  .make(),
                               "${widget.data['total_amount']}"
                                   .text
                                   .color(redColor)
@@ -325,7 +340,8 @@ class _OrdersDetailsState extends State<OrdersDetails> {
               ).box.outerShadowMd.white.make(),
               const Divider(),
               10.heightBox,
-              "Ordered Product"
+              AppLocalizations.of(context)!
+                  .orderedproduct
                   .text
                   .size(16)
                   .color(darkFontGrey)

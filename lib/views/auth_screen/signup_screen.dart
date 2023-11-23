@@ -5,6 +5,7 @@ import '../../consts/consts.dart';
 import '../../widget_common/applpgo_widget.dart';
 import '../../widget_common/bg_widget.dart';
 import '../../widget_common/our_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -33,7 +34,13 @@ class _SignupScreenState extends State<SignupScreen> {
           (context.screenHeight * 0.1).heightBox,
           applogoWidget(),
           10.heightBox,
-          "Join The $appname".text.fontFamily(bold).white.size(18).make(),
+          AppLocalizations.of(context)!
+              .join
+              .text
+              .fontFamily(bold)
+              .white
+              .size(18)
+              .make(),
           15.heightBox,
           Obx(
             () => Column(
@@ -41,7 +48,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 TextFormField(
                   obscureText: false,
                   controller: nameController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     filled: true,
                     fillColor: whiteColor,
                     prefixIcon: Icon(
@@ -49,14 +56,14 @@ class _SignupScreenState extends State<SignupScreen> {
                       color: redColor,
                     ),
                     border: InputBorder.none,
-                    hintText: nameHint,
+                    hintText: AppLocalizations.of(context)!.entername,
                   ),
                 ),
                 10.heightBox,
                 TextFormField(
                   obscureText: false,
                   controller: emailController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     filled: true,
                     fillColor: whiteColor,
                     prefixIcon: Icon(
@@ -64,14 +71,14 @@ class _SignupScreenState extends State<SignupScreen> {
                       color: redColor,
                     ),
                     border: InputBorder.none,
-                    hintText: emailHint,
+                    hintText: AppLocalizations.of(context)!.enteremail,
                   ),
                 ),
                 10.heightBox,
                 TextFormField(
                   obscureText: true,
                   controller: passwordController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     filled: true,
                     fillColor: whiteColor,
                     prefixIcon: Icon(
@@ -79,14 +86,14 @@ class _SignupScreenState extends State<SignupScreen> {
                       color: redColor,
                     ),
                     border: InputBorder.none,
-                    hintText: passwordHint,
+                    hintText: AppLocalizations.of(context)!.enterpass,
                   ),
                 ),
                 10.heightBox,
                 TextFormField(
                   obscureText: false,
                   controller: passwordRetypeController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     filled: true,
                     fillColor: whiteColor,
                     prefixIcon: Icon(
@@ -94,7 +101,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       color: redColor,
                     ),
                     border: InputBorder.none,
-                    hintText: retypePasswordHint,
+                    hintText: AppLocalizations.of(context)!.enterpassagain,
                   ),
                 ),
                 10.heightBox,
@@ -111,21 +118,21 @@ class _SignupScreenState extends State<SignupScreen> {
                     10.widthBox,
                     Expanded(
                       child: RichText(
-                          text: const TextSpan(children: [
+                          text: TextSpan(children: [
                         TextSpan(
-                            text: 'I agree to the ',
+                            text: AppLocalizations.of(context)!.iagreeto,
                             style: TextStyle(
                                 fontFamily: regular, color: fontGrey)),
                         TextSpan(
-                            text: termsAndConditions,
+                            text: AppLocalizations.of(context)!.terms,
                             style:
                                 TextStyle(fontFamily: bold, color: redColor)),
                         TextSpan(
-                            text: '&',
+                            text: AppLocalizations.of(context)!.and,
                             style: TextStyle(
                                 fontFamily: regular, color: fontGrey)),
                         TextSpan(
-                            text: privacyPolicy,
+                            text: AppLocalizations.of(context)!.privacypolicy,
                             style:
                                 TextStyle(fontFamily: bold, color: redColor)),
                       ])),
@@ -139,7 +146,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       )
                     : ourButton(
                         color: isCheck == true ? redColor : lightGrey,
-                        title: signup,
+                        title: AppLocalizations.of(context)!.signup,
                         textColor: whiteColor,
                         onPress: () async {
                           if (isCheck != false) {
@@ -180,8 +187,17 @@ class _SignupScreenState extends State<SignupScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              alreadyHaveAccount.text.color(fontGrey).make(),
-              login.text.color(redColor).make().onTap(() {
+              AppLocalizations.of(context)!
+                  .alreadyhaveaccount
+                  .text
+                  .color(fontGrey)
+                  .make(),
+              AppLocalizations.of(context)!
+                  .loginb
+                  .text
+                  .color(redColor)
+                  .make()
+                  .onTap(() {
                 Get.back();
               })
             ],

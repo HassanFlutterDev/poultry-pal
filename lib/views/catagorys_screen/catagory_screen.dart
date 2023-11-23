@@ -4,6 +4,7 @@ import 'package:poultry_pal/controllers/product_controller.dart';
 import 'package:poultry_pal/views/catagorys_screen/catagory_detail.dart';
 import 'package:poultry_pal/widget_common/bg_widget.dart';
 import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CategoryScreen extends StatelessWidget {
   const CategoryScreen({Key? key}) : super(key: key);
@@ -14,7 +15,12 @@ class CategoryScreen extends StatelessWidget {
     return bgWidget(
       child: Scaffold(
         appBar: AppBar(
-          title: categories.text.fontFamily(bold).white.make(),
+          title: AppLocalizations.of(context)!
+              .category
+              .text
+              .fontFamily(bold)
+              .white
+              .make(),
         ),
         body: Container(
           padding: const EdgeInsets.all(12),

@@ -9,6 +9,7 @@ import 'package:poultry_pal/widget_common/our_button.dart';
 import 'package:get/get.dart';
 import '../../consts/list.dart';
 import 'package:http/http.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PaymentMethods extends StatefulWidget {
   const PaymentMethods({Key? key}) : super(key: key);
@@ -106,7 +107,9 @@ class _PaymentMethodsState extends State<PaymentMethods> {
                                 paymentMethods[controller.paymentIndex.value],
                             totalAmount: controller.totalP.value);
                         await controller.clearCart();
-                        VxToast.show(context, msg: "Order placed successfully");
+                        VxToast.show(context,
+                            msg: AppLocalizations.of(context)!
+                                .orderplacedsuccess);
                         Get.offAll(const Home());
                       }
                     } else {
@@ -115,17 +118,20 @@ class _PaymentMethodsState extends State<PaymentMethods> {
                               paymentMethods[controller.paymentIndex.value],
                           totalAmount: controller.totalP.value);
                       await controller.clearCart();
-                      VxToast.show(context, msg: "Order placed successfully");
+                      VxToast.show(context,
+                          msg:
+                              AppLocalizations.of(context)!.orderplacedsuccess);
                       Get.offAll(const Home());
                     }
                   },
                   color: redColor,
                   textColor: whiteColor,
-                  title: "Place my order",
+                  title: AppLocalizations.of(context)!.placemyorder,
                 ),
         ),
         appBar: AppBar(
-          title: "Chose Payment Method"
+          title: AppLocalizations.of(context)!
+              .chosepayment
               .text
               .fontFamily(semibold)
               .color(darkFontGrey)
@@ -180,7 +186,10 @@ class _PaymentMethodsState extends State<PaymentMethods> {
                         Positioned(
                             bottom: 10,
                             right: 10,
-                            child: paymentMethods[index]
+                            child: [
+                              AppLocalizations.of(context)!.stripe,
+                              AppLocalizations.of(context)!.cashondelivery,
+                            ][index]
                                 .text
                                 .white
                                 .fontFamily(semibold)

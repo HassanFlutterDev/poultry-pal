@@ -6,6 +6,7 @@ import 'package:poultry_pal/views/cart_screen/shipping_screen.dart';
 import 'package:poultry_pal/widget_common/loading_indicator.dart';
 import 'package:poultry_pal/widget_common/our_button.dart';
 import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({Key? key}) : super(key: key);
@@ -24,11 +25,12 @@ class CartScreen extends StatelessWidget {
               Get.to(() => const ShippingDetails());
             },
             textColor: whiteColor,
-            title: "Proceed to shipping"),
+            title: AppLocalizations.of(context)!.proceedtoshop),
       ),
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: "Shopping cart"
+        title: AppLocalizations.of(context)!
+            .shoppingcart
             .text
             .fontFamily(semibold)
             .color(darkFontGrey)
@@ -43,7 +45,11 @@ class CartScreen extends StatelessWidget {
             );
           } else if (snapshot.data!.docs.isEmpty) {
             return Center(
-              child: "Cart is empty".text.color(darkFontGrey).make(),
+              child: AppLocalizations.of(context)!
+                  .nocart
+                  .text
+                  .color(darkFontGrey)
+                  .make(),
             );
           } else {
             var data = snapshot.data!.docs;

@@ -1,8 +1,12 @@
+// ignore_for_file: prefer_const_constructors, sort_child_properties_last
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:poultry_pal/consts/consts.dart';
 import 'package:poultry_pal/consts/list.dart';
 import 'package:poultry_pal/controllers/auth_controller.dart';
+import 'package:poultry_pal/controllers/language_controller.dart';
 import 'package:poultry_pal/controllers/profile_controller.dart';
+import 'package:poultry_pal/main.dart';
 import 'package:poultry_pal/services/fire_store_services.dart';
 import 'package:poultry_pal/views/auth_screen/login_screen.dart';
 import 'package:poultry_pal/views/chat_screen/messaging_screen.dart';
@@ -13,6 +17,10 @@ import 'package:poultry_pal/views/wishlist_screen/wishlist_screen.dart';
 import 'package:poultry_pal/widget_common/bg_widget.dart';
 import 'package:poultry_pal/widget_common/loading_indicator.dart';
 import 'package:get/get.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -20,6 +28,12 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Get.put(ProfileController());
+    var languageController = Get.put(LanguageChangeController());
+    List profileButtonsList = [
+      AppLocalizations.of(context)!.myorder,
+      AppLocalizations.of(context)!.mywhishlist,
+      AppLocalizations.of(context)!.mymessages
+    ];
     return bgWidget(
       child: Scaffold(
           body: StreamBuilder(
@@ -37,15 +51,55 @@ class ProfileScreen extends StatelessWidget {
               child: Column(
                 children: [
                   //edit profile button
-                  const Align(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Align(
                           alignment: Alignment.topRight,
-                          child: Icon(Icons.edit, color: whiteColor))
-                      .onTap(() {
-                    controller.nameController.text = data['name'];
-                    Get.to(() => EditProfileScreen(
-                          data: data,
-                        ));
-                  }),
+                          child: Icon(
+                            Icons.edit,
+                            color: whiteColor,
+                            size: 35,
+                          )).onTap(() {
+                        controller.nameController.text = data['name'];
+                        Get.to(() => EditProfileScreen(
+                              data: data,
+                            ));
+                      }),
+                      Align(
+                          alignment: Alignment.topRight,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: PopupMenuButton(
+                                child: Icon(
+                                  Icons.language,
+                                  color: Colors.white,
+                                  size: 35,
+                                ),
+                                onSelected: (value) async {
+                                  SharedPreferences pref =
+                                      await SharedPreferences.getInstance();
+                                  if (value == 0) {
+                                    Get.updateLocale(Locale('en'));
+                                    pref.setString('language', 'en');
+                                  } else {
+                                    Get.updateLocale(Locale('ur'));
+                                    pref.setString('language', 'ur');
+                                  }
+                                },
+                                itemBuilder: (_) => [
+                                      PopupMenuItem(
+                                        child: Text('English'),
+                                        value: 0,
+                                      ),
+                                      PopupMenuItem(
+                                        child: Text('Urdu'),
+                                        value: 1,
+                                      ),
+                                    ]),
+                          ))
+                    ],
+                  ),
                   //user detail section
                   Row(
                     children: [
@@ -87,7 +141,12 @@ class ProfileScreen extends StatelessWidget {
                                 .signoutMethod(context);
                             Get.offAll(() => const LoginScreen());
                           },
-                          child: logout.text.fontFamily(semibold).white.make())
+                          child: AppLocalizations.of(context)!
+                              .logout
+                              .text
+                              .fontFamily(semibold)
+                              .white
+                              .make())
                     ],
                   ),
                   20.heightBox,
@@ -102,16 +161,17 @@ class ProfileScreen extends StatelessWidget {
                           children: [
                             detailsCard(
                                 count: data['cart_count'],
-                                title: "in your cart",
-                                width: context.screenWidth / 3.3),
+                                title: AppLocalizations.of(context)!.yourcart,
+                                width: context.screenWidth / 3.1),
                             detailsCard(
                                 count: data['whishlist_count'],
-                                title: "in your whishlist",
-                                width: context.screenWidth / 3.3),
+                                title:
+                                    AppLocalizations.of(context)!.yourwhishlist,
+                                width: context.screenWidth / 3.1),
                             detailsCard(
                                 count: data['oder_count'],
-                                title: "your orders",
-                                width: context.screenWidth / 3.3),
+                                title: AppLocalizations.of(context)!.yourorder,
+                                width: context.screenWidth / 3.1),
                           ],
                         );
                       }
@@ -148,6 +208,7 @@ class ProfileScreen extends StatelessWidget {
                           color: darkFontGrey,
                         ),
                         title: profileButtonsList[index]
+                            .toString()
                             .text
                             .fontFamily(semibold)
                             .color(darkFontGrey)

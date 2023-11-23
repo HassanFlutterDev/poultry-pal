@@ -8,6 +8,8 @@ import 'package:poultry_pal/views/catagorys_screen/item_detail.dart';
 import 'package:poultry_pal/views/home_screen/search_screen.dart';
 import 'package:poultry_pal/widget_common/loading_indicator.dart';
 import 'package:get/get.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -41,7 +43,7 @@ class HomeScreen extends StatelessWidget {
                   }),
                   filled: true,
                   fillColor: whiteColor,
-                  hintText: searchanything,
+                  hintText: AppLocalizations.of(context)!.searchanything,
                   hintStyle: const TextStyle(color: textfieldGrey),
                 ),
               ),
@@ -61,7 +63,10 @@ class HomeScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          featuredProduct.text.white
+                          AppLocalizations.of(context)!
+                              .featuredproduct
+                              .text
+                              .white
                               .fontFamily(bold)
                               .size(18)
                               .make(),

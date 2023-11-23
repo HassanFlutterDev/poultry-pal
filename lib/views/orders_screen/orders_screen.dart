@@ -4,6 +4,7 @@ import 'package:poultry_pal/consts/consts.dart';
 import 'package:poultry_pal/services/fire_store_services.dart';
 import 'package:poultry_pal/views/orders_screen/orders_detail.dart';
 import 'package:poultry_pal/widget_common/loading_indicator.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OrderScreen extends StatelessWidget {
   const OrderScreen({Key? key}) : super(key: key);
@@ -13,7 +14,12 @@ class OrderScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: whiteColor,
       appBar: AppBar(
-        title: "My Orders".text.color(darkFontGrey).fontFamily(semibold).make(),
+        title: AppLocalizations.of(context)!
+            .myorder
+            .text
+            .color(darkFontGrey)
+            .fontFamily(semibold)
+            .make(),
       ),
       body: StreamBuilder(
         stream: FirestoreServices.getAllOrders(),
@@ -23,7 +29,11 @@ class OrderScreen extends StatelessWidget {
               child: loadingIndicator(),
             );
           } else if (snapshot.data!.docs.isEmpty) {
-            return "No orders yet!".text.color(darkFontGrey).makeCentered();
+            return AppLocalizations.of(context)!
+                .noorder
+                .text
+                .color(darkFontGrey)
+                .makeCentered();
           } else {
             var data = snapshot.data!.docs;
             return ListView.builder(

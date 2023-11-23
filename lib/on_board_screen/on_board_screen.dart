@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_onboard/flutter_onboard.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class onBoardScreen extends StatelessWidget {
   final PageController _pageController = PageController();
@@ -13,6 +14,24 @@ class onBoardScreen extends StatelessWidget {
   onBoardScreen({super.key});
   @override
   Widget build(BuildContext context) {
+    final List<OnBoardModel> onBoardData = [
+      OnBoardModel(
+        title: AppLocalizations.of(context)!.healtychoice.toString(),
+        description: AppLocalizations.of(context)!.healty,
+        imgUrl: "assets/onboardimages/onboard1.png",
+      ),
+      OnBoardModel(
+        title: AppLocalizations.of(context)!.stay,
+        description: AppLocalizations.of(context)!.stayin,
+        imgUrl: 'assets/onboardimages/onboard2.png',
+      ),
+      OnBoardModel(
+        title: AppLocalizations.of(context)!.serv,
+        description: AppLocalizations.of(context)!.service,
+        imgUrl: 'assets/onboardimages/onboard3.png',
+      ),
+    ];
+
     return Scaffold(
       body: OnBoard(
         pageController: _pageController,
@@ -120,24 +139,3 @@ class onBoardScreen extends StatelessWidget {
     }
   }
 }
-
-final List<OnBoardModel> onBoardData = [
-  const OnBoardModel(
-    title: "Healthy Choices",
-    description:
-        "Make healthy choices for your family by finding fresh and nutritious poultry products through Poultry_Pal",
-    imgUrl: "assets/onboardimages/onboard1.png",
-  ),
-  const OnBoardModel(
-    title: "Stay in the Know",
-    description:
-        "Track your orders in real-time, from farm to doorstep. Our order tracking feature keeps you updated at every step, so you can anticipate your delivery and shop with confidence.",
-    imgUrl: 'assets/onboardimages/onboard2.png',
-  ),
-  const OnBoardModel(
-    title: "24/7 Service",
-    description:
-        "We're here for you around the clock. Our 24/7 service ensures you can shop, get assistance, or have your questions answered at any time that suits you. Your convenience is our priority",
-    imgUrl: 'assets/onboardimages/onboard3.png',
-  ),
-];

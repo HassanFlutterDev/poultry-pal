@@ -1,6 +1,6 @@
 import 'package:poultry_pal/consts/consts.dart';
 
-const socialIconList = [icFacebookLogo, icGoogleLogo, icTwitterLogo];
+const socialIconList = [icGoogleLogo];
 const slidersList = [imgSlider1, imgSlider2, imgSlider3, imgSlider4];
 const secondSlidersList = [imgSs1, imgSs2, imgSs3, imgSs4];
 const featuredImages1 = [imgS1, imgS2, imgS3];

@@ -10,14 +10,14 @@ Widget detailsCard({
     children: [
       count!.text.fontFamily(bold).color(darkFontGrey).size(16).make(),
       5.heightBox,
-      title!.text.color(darkFontGrey).make(),
+      title!.text.color(darkFontGrey).maxFontSize(12).make(),
     ],
   )
       .box
       .white
       .rounded
       .width(width)
-      .height(50)
+      .height(60)
       .padding(const EdgeInsets.all(4))
       .make();
 }

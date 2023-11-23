@@ -47,6 +47,7 @@ class CartController extends GetxController {
       'order_by_postalcode': postalcodeController.text,
       'shipping_method': "Home Delivery",
       'payment_method': orderPaymentMethod,
+      'paid': orderPaymentMethod == 'Stripe' ? 'Paid' : 'Unpaid',
       'order_placed': true,
       'order_confirm': false,
       'order_delivered': false,

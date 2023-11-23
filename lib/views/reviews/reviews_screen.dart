@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:poultry_pal/consts/consts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ReviewScreen extends StatefulWidget {
   String id;
@@ -19,7 +20,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          'Reviews',
+          AppLocalizations.of(context)!.review,
           style: TextStyle(
             color: Colors.black,
           ),

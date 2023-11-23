@@ -4,6 +4,7 @@ import 'package:poultry_pal/services/fire_store_services.dart';
 import 'package:poultry_pal/views/chat_screen/chat_screen.dart';
 import 'package:poultry_pal/widget_common/loading_indicator.dart';
 import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MessagesScreen extends StatelessWidget {
   const MessagesScreen({Key? key}) : super(key: key);
@@ -13,8 +14,12 @@ class MessagesScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: whiteColor,
       appBar: AppBar(
-        title:
-            "My Messages".text.color(darkFontGrey).fontFamily(semibold).make(),
+        title: AppLocalizations.of(context)!
+            .mymessages
+            .text
+            .color(darkFontGrey)
+            .fontFamily(semibold)
+            .make(),
       ),
       body: StreamBuilder(
           stream: FirestoreServices.getAllMessages(),
@@ -25,7 +30,11 @@ class MessagesScreen extends StatelessWidget {
                 child: loadingIndicator(),
               );
             } else if (snapshot.data!.docs.isEmpty) {
-              return "No messages yet!".text.color(darkFontGrey).makeCentered();
+              return AppLocalizations.of(context)!
+                  .nomessage
+                  .text
+                  .color(darkFontGrey)
+                  .makeCentered();
             } else {
               var data = snapshot.data!.docs;
               return Padding(

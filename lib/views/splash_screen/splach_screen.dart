@@ -20,6 +20,9 @@ class _SplashScreenState extends State<SplashScreen> {
           Get.off(() =>
               onBoardScreen()); // Use Get.off to replace the current route
         } else {
+          Navigator.push(context, MaterialPageRoute(builder: (_) {
+            return Home();
+          }));
           Get.off(
               () => const Home()); // Use Get.off to replace the current route
         }

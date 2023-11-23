@@ -6,6 +6,7 @@ import 'package:poultry_pal/widget_common/bg_widget.dart';
 import 'package:poultry_pal/widget_common/custome_textfield.dart';
 import 'package:poultry_pal/widget_common/our_button.dart';
 import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditProfileScreen extends StatelessWidget {
   final dynamic data;
@@ -53,24 +54,24 @@ class EditProfileScreen extends StatelessWidget {
                     controller.changeImage(context);
                   },
                   textColor: whiteColor,
-                  title: "Chnage"),
+                  title: AppLocalizations.of(context)!.change),
               const Divider(),
               20.heightBox,
               customTextField(
                   controller: controller.nameController,
-                  hint: nameHint,
+                  hint: AppLocalizations.of(context)!.entername,
                   title: name,
                   isPass: false),
               10.heightBox,
               customTextField(
                   controller: controller.oldpassController,
-                  hint: passwordHint,
+                  hint: AppLocalizations.of(context)!.enterpass,
                   title: oldpass,
                   isPass: true),
               10.heightBox,
               customTextField(
                   controller: controller.newpassController,
-                  hint: passwordHint,
+                  hint: AppLocalizations.of(context)!.enterpass,
                   title: newpass,
                   isPass: true),
               20.heightBox,
@@ -110,7 +111,7 @@ class EditProfileScreen extends StatelessWidget {
                             }
                           },
                           textColor: whiteColor,
-                          title: "Save"),
+                          title: AppLocalizations.of(context)!.save),
                     ),
             ],
           )

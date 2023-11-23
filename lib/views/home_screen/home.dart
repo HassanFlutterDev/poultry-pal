@@ -6,6 +6,7 @@ import 'package:poultry_pal/views/profile_screen/profile_screen.dart';
 import 'package:poultry_pal/widget_common/exit_dialog.dart';
 import 'package:get/get.dart';
 import '../cart_screen/cart_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -20,25 +21,25 @@ class Home extends StatelessWidget {
             icHome,
             width: 26,
           ),
-          label: home),
+          label: AppLocalizations.of(context)!.home),
       BottomNavigationBarItem(
           icon: Image.asset(
             icCategories,
             width: 26,
           ),
-          label: categories),
+          label: AppLocalizations.of(context)!.category),
       BottomNavigationBarItem(
           icon: Image.asset(
             icCart,
             width: 26,
           ),
-          label: cart),
+          label: AppLocalizations.of(context)!.cart),
       BottomNavigationBarItem(
           icon: Image.asset(
             icProfile,
             width: 26,
           ),
-          label: account),
+          label: AppLocalizations.of(context)!.account),
     ];
 
     var navBody = [

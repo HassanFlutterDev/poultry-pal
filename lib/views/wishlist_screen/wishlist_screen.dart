@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:poultry_pal/consts/consts.dart';
 import 'package:poultry_pal/services/fire_store_services.dart';
 import 'package:poultry_pal/widget_common/loading_indicator.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WishlistScreen extends StatelessWidget {
   const WishlistScreen({Key? key}) : super(key: key);
@@ -11,8 +12,12 @@ class WishlistScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: whiteColor,
       appBar: AppBar(
-        title:
-            "My Wishlist".text.color(darkFontGrey).fontFamily(semibold).make(),
+        title: AppLocalizations.of(context)!
+            .mywhishlist
+            .text
+            .color(darkFontGrey)
+            .fontFamily(semibold)
+            .make(),
       ),
       body: StreamBuilder(
           stream: FirestoreServices.getWishlist(),
@@ -23,7 +28,11 @@ class WishlistScreen extends StatelessWidget {
                 child: loadingIndicator(),
               );
             } else if (snapshot.data!.docs.isEmpty) {
-              return "No Item yet!".text.color(darkFontGrey).makeCentered();
+              return AppLocalizations.of(context)!
+                  .noitem
+                  .text
+                  .color(darkFontGrey)
+                  .makeCentered();
             } else {
               var data = snapshot.data!.docs;
               return Column(
